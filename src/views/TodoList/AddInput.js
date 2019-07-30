@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
+// import Dialog from '@material-ui/core/Dialog';
 
 class AddInput extends Component {
   constructor(props) {
@@ -27,6 +27,9 @@ class AddInput extends Component {
           data: e.target.value
         });
         this.onClearInput();
+        break;
+      default:
+        console.log(123)
     }
   }
   render() {
