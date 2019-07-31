@@ -1,0 +1,27 @@
+.aside-nav-main-component {
+  height: 100%;
+  padding: 20px 0;
+  //background: red;
+  .aside-nav-package-el {
+    width: 200px;
+    .aside-nav-item {
+      padding: 10px;
+      border: 1px solid #DFDFDF;
+      li {
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        a {
+          color: #333333;
+          text-decoration: none;
+          &:hover {
+            color: #509827;
+          }
+        }
+      }
+    }
+    .aside-nav-item + .aside-nav-item {
+      margin-top: 20px;
+    }
+  }
+}

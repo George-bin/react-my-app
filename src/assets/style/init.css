@@ -25,20 +25,20 @@ select {
 table {
   border-collapse:collapse;
 }
-fieldset, img {
-  border:0 none;
-}
-fieldset {
-  margin:0;
-  padding:0;
-}
-fieldset p {
-  margin:0;
-  padding:0 0 0 8px;
-}
-legend {
-  display:none;
-}
+/*fieldset, img {*/
+  /*border:0 none;*/
+/*}*/
+/*fieldset {*/
+  /*margin:0;*/
+  /*padding:0;*/
+/*}*/
+/*fieldset p {*/
+  /*margin:0;*/
+  /*padding:0 0 0 8px;*/
+/*}*/
+/*legend {*/
+  /*display:none;*/
+/*}*/
 address, caption, em, strong, th, i {
   font-style:normal;
   font-weight:400;

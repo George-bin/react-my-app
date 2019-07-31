@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class Life extends Component {
+export default class ArticleList extends Component {
   render() {
     return (
       <div>
-        <h3>Life</h3>
+        <p>文章列表</p>
       </div>
     )
   }
