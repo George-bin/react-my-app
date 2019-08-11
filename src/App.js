@@ -6,47 +6,24 @@ import Home from './views/Home/Home';
 import Life from './views/Life/Life';
 import ArticleList from "./components/ArticleList";
 import LeftAside from './components/LeftAside';
+import ArticleComponent from './components/ArticleContent';
 // import TodoList from './views/TodoList'
 
 let asideNav = {
   classify: {
     id: '1',
     label: '分类',
-    list: [{
-      id: '1-1',
-      label: 'Vue'
-    }, {
-      id: '1-2',
-      label: 'React'
-    }, {
-      id: '1-3',
-      label: 'Electron'
-    }, {
-      id: '1-4',
-      label: '微信小程序'
-    }]
+    list: []
   },
   jottings: {
     id: '2',
     label: '随笔',
-    list: [{
-      id: '2-1',
-      label: 'undefined和null的区别?'
-    }, {
-      id: '2-2',
-      label: 'JS继承?'
-    }]
+    list: []
   },
   date: {
     id: '3',
     label: '日期',
-    list: [{
-      id: '3-1',
-      label: '2018-080-12'
-    }, {
-      id: '3-2',
-      label: '2018-080-14'
-    }]
+    list: []
   }
 };
 
@@ -122,9 +99,10 @@ class App extends React.Component {
               </aside>
               <section className="main-screen-section">
                 <Switch>
-                  <Route path="/" exact component={Home}></Route>
+                  <Route path="/" exact component={Home} />
                   <Route path="/life" component={Life} />
-                  <Route path="/home/classify/:classifyId" component={ArticleList}></Route>
+                  <Route path="/home/articleList/:id" component={ArticleList} />
+                  <Route path="/home/article/:articleId" component={ArticleComponent} />
                 </Switch>
               </section>
             </div>

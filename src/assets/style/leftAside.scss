@@ -1,20 +1,34 @@
 .aside-nav-main-component {
   height: 100%;
   padding: 20px 0;
-  //background: red;
   .aside-nav-package-el {
-    width: 200px;
+    width: 240px;
     .aside-nav-item {
-      padding: 10px;
-      border: 1px solid #DFDFDF;
-      li {
-        height: 30px;
-        line-height: 30px;
-        font-size: 14px;
-        a {
-          color: #333333;
-          text-decoration: none;
-          &:hover {
+      //border: 1px solid #DFDFDF;
+      border: none;
+      background: #FFFFFF;
+      border-radius: 4px;
+      legend {
+        margin-left: 10px;
+      }
+      .list {
+        margin-top: 10px;
+        .list-item {
+          display: flex;
+          align-items: center;
+          height: 34px;
+          padding: 0 10px;
+          font-size: 14px;
+          .iconfont {
+            color: gray;
+          }
+          a {
+            flex: 1;
+            margin-left: 10px;
+            color: #333333;
+            text-decoration: none;
+          }
+          a:hover {
             color: #509827;
           }
         }
@@ -22,6 +36,10 @@
     }
     .aside-nav-item + .aside-nav-item {
       margin-top: 20px;
+    }
+    .no-content {
+      padding: 10px;
+      color: gray;
     }
   }
 }

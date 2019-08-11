@@ -1,0 +1,40 @@
+.article-content-main-component {
+  padding: 20px 30px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  .article-title {
+    font-size: 18px;
+    color: #509827;
+  }
+  .article-other-info {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: gray;
+    .create-time {
+      span {
+        margin-left: 10px;
+      }
+    }
+    .label {
+      margin-left: 10px;
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+  .article-content {
+    strong {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    p, li {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    li {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+  }
+}

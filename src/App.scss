@@ -71,10 +71,11 @@
   }
   .content-container {
     height: calc(100vh - 140px);
+    background: #F7F7F7;
     .content-container-package-el {
       display: flex;
       max-width: 1200px;
-      height: 100%;
+      //height: 100%;
       margin: auto;
       .main-screen-section {
         flex: 1;

@@ -2,7 +2,8 @@ html {
   overflow-x:auto;
   overflow-y:scroll;
 }
-body, dl, dt, dd, ul, ol, li, pre, form, fieldset, input, p, blockquote, th, td {
+body, dl, dt, dd, ul, ol, li, form, fieldset, input, p, blockquote, th, td {
+  font-family:"Microsoft YaHei",Helvetica,Arial,sans-serif;
   font-weight:400;
   margin:0;
   padding:0;
@@ -12,7 +13,7 @@ h1, h2, h3, h4, h4, h5 {
   padding:0;
 }
 body {
-  background-color:#FFFFFF;
+  background-color:#f7f7f7;
   color:#333333;
   font-family:"Microsoft YaHei",Helvetica,Arial,sans-serif;
   font-size:12px;
@@ -36,9 +37,9 @@ table {
   /*margin:0;*/
   /*padding:0 0 0 8px;*/
 /*}*/
-/*legend {*/
-  /*display:none;*/
-/*}*/
+legend {
+  font-size: 14px;
+}
 address, caption, em, strong, th, i {
   font-style:normal;
   font-weight:400;
@@ -69,4 +70,19 @@ q:before, q:after, blockquote:before, blockquote:after {
 html, body, #root {
   height: 100%;
   /*background: #182938;*/
+}
+
+pre {
+  padding: 10px;
+  color: #FFFFFF;
+  background: #333333;
+  border-radius: 4px;
+}
+
+pre {
+  font-family:"Microsoft YaHei",Helvetica,Arial,sans-serif;
+}
+
+a {
+  text-decoration: none;
 }

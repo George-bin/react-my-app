@@ -1,13 +1,9 @@
-export const addTodo = data => {
-  return {
-    type: 'ADD_TODO',
-    data
-  };
-}
+import {
+  getAssignClassifyArticleList,
+  getAssignDateArticleList
+} from './home';
 
-export const delTodo = data => {
-  return {
-    type: 'DEL_TODO',
-    data
-  }
+export {
+  getAssignClassifyArticleList,
+  getAssignDateArticleList
 }
