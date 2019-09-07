@@ -1,9 +1,11 @@
 import {
   getAssignClassifyArticleList,
-  getAssignDateArticleList
+  getAssignDateArticleList,
+  getAssignArticle
 } from './home';
 
 export {
   getAssignClassifyArticleList,
-  getAssignDateArticleList
+  getAssignDateArticleList,
+  getAssignArticle
 }

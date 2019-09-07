@@ -1,8 +1,10 @@
 import axios from 'axios';
+// 引入默认值
+import defaultState from '../state';
 // 获取指定分类的文章列表
 export const getAssignClassifyArticleList = classifyId => {
   return (dispatch, getState) => {
-    axios.get(`http://localhost:3000/api/blog/getClassifyArticle/${classifyId}`)
+    axios.get(`${defaultState.baseUrl}/api/blog/getClassifyArticle/${classifyId}`)
       .then(response => {
         dispatch({ type: 'UPDATE_ARTICLE_LIST', data: response.data.articleList })
       })
@@ -13,7 +15,7 @@ export const getAssignClassifyArticleList = classifyId => {
 export const getAssignDateArticleList = date => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3000/api/blog/getAssignDateArticle/${date}`)
+      axios.get(`${defaultState.baseUrl}/api/blog/getAssignDateArticle/${date}`)
         .then(response => {
           dispatch({ type: 'UPDATE_ARTICLE_LIST', data: response.data.articleList })
           resolve()
@@ -29,7 +31,7 @@ export const getAssignDateArticleList = date => {
 export const getAssignArticle = articleId => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3000/api/blog/getAssignArticle/${articleId}`)
+      axios.get(`${defaultState.baseUrl}/api/blog/getAssignArticle/${articleId}`)
         .then(response => {
           dispatch({ type: 'UPDATE_ACTIVE_ARTICLE', data: response.data.article })
           resolve()

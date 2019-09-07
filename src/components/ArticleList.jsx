@@ -3,18 +3,36 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import '../assets/style/articleList.scss';
+import {getAssignClassifyArticleList, getAssignDateArticleList} from '../store/actions';
 
 class ArticleList extends Component {
   constructor(props) {
     super(props);
+    this.state = {}
+  }
+
+  componentDidMount() {
+    // console.log('获取文章列表:', this.props)
+    let { getAssignClassifyArticleList, getAssignDateArticleList } = this.props;
+    let { classifyId, type} = this.props.match.params;
+    if (type === 'classify') {
+      getAssignClassifyArticleList(classifyId);
+    } else {
+      getAssignDateArticleList(classifyId)
+    }
   }
 
   render() {
     let { articleList } = this.props;
-    console.log('articleList', articleList)
+    let { type } = this.props.match.params;
+    // console.log('this.props.history.location', this.props.match.params)
     return (
       <div className="article-list-main-components">
-        <h2 className="article-list-title">文章列表</h2>
+        {
+          type === 'classify' ?
+            <h2 className="article-list-title">文章列表 {articleList.length ? articleList[0].notebookName : ''}</h2> :
+            <h2 className="article-list-title">文章列表 {articleList.length ? moment(articleList[0].createTime).format('YYYY-MM-DD') : ''}</h2>
+        }
         {
           articleList.length ?
             <ul className="article-list-section">
@@ -33,7 +51,7 @@ class ArticleList extends Component {
                             <i className="iconfont icon-riqi"></i>
                             <span>{moment(article.createTime).format('YYYY-MM-DD')}</span>
                           </span>
-                                <span className="label">
+                          <span className="label">
                             <i className="iconfont icon-biaoqian"></i>
                             <span>{article.notebookName}</span>
                           </span>
@@ -64,4 +82,15 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(ArticleList)
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getAssignClassifyArticleList (data) {
+      dispatch(getAssignClassifyArticleList(data))
+    },
+    getAssignDateArticleList (data) {
+      dispatch(getAssignDateArticleList(data))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList)

@@ -1,54 +1,22 @@
 import React from 'react'
 // import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { Icon } from 'antd';
 import './App.scss';
-import Home from './views/Home/Home';
-import Life from './views/Life/Life';
-import ArticleList from "./components/ArticleList";
-import LeftAside from './components/LeftAside';
-import ArticleComponent from './components/ArticleContent';
+import routes from './router'
+
 // import TodoList from './views/TodoList'
-
-let asideNav = {
-  classify: {
-    id: '1',
-    label: '分类',
-    list: []
-  },
-  jottings: {
-    id: '2',
-    label: '随笔',
-    list: []
-  },
-  date: {
-    id: '3',
-    label: '日期',
-    list: []
-  }
-};
-
-const router = [
-  {
-    path: '/life',
-    name: 'Life',
-    label: '生活',
-    component: Life,
-    isExact: false
-  }, {
-    path: '/',
-    name: 'Home',
-    label: '首页',
-    component: Home,
-    isExact: true
-  }
-];
+// 引入antd css
+import 'antd/dist/antd.css';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activeRoute: 'Home',
-      activeTitle: '首页'
+      activeTitle: '首页',
+      // 显示滚动到顶部按钮
+      showGoTopBtn: false
     }
   }
   handleChangeRoute(item, event) {
@@ -57,12 +25,27 @@ class App extends React.Component {
       activeTitle: item.label
     })
   }
+  // 组件挂载完成
+  componentDidMount() {
+    window.addEventListener('scroll', () => {
+      let height = document.documentElement.scrollTop;
+      if (height >= 100) {
+        this.setState({
+          showGoTopBtn: true
+        });
+      } else {
+        this.setState({
+          showGoTopBtn: false
+        });
+      }
+    })
+  }
+
   render() {
     return (
       <Router>
-        <div className='app'>
-          {/* 把 <a> 变成 <Link> */}
-          <header className="header-container">
+        <div className="app" id="app">
+          <header className="header-container" id="main-header">
             <div className="header-container-package-el">
               <div className="main-title">
                 <img src={[require("./assets/img/icon.jpg")]} alt="头像"/>
@@ -70,19 +53,18 @@ class App extends React.Component {
               </div>
               <nav className="main-nav">
                 <ul className="aside-nav-list-section">
-                  {
-                    router.map(item => {
-                      return (
-                        <li
-                          className="aside-nav-list-item"
-                          onClick={this.handleChangeRoute.bind(this, item)}
-                          key={item.name}
-                          style={{background: item.name === this.state.activeRoute ? '#F7F7F7' : '#D5D5D5'}}>
-                          <Link to={item.path}>{item.label}</Link>
-                        </li>
-                      )
-                    })
-                  }
+                  <li
+                    className="aside-nav-list-item"
+                    onClick={this.handleChangeRoute.bind(this, {name: 'Life', label: '生活'})}
+                    style={{background: this.state.activeRoute === 'Life' ? '#F7F7F7' : '#d8d8d8'}}>
+                    <Link to="/life">生活</Link>
+                  </li>
+                  <li
+                    className="aside-nav-list-item"
+                    onClick={this.handleChangeRoute.bind(this, {name: 'Home', label: '首页'})}
+                    style={{background: this.state.activeRoute === 'Home' ? '#F7F7F7' : '#d8d8d8'}}>
+                    <Link to="/">首页</Link>
+                  </li>
                 </ul>
               </nav>
             </div>
@@ -94,24 +76,53 @@ class App extends React.Component {
           </section>
           <div className="content-container">
             <div className="content-container-package-el">
-              <aside>
-                <LeftAside asideNav={asideNav} />
-              </aside>
-              <section className="main-screen-section">
-                <Switch>
-                  <Route path="/" exact component={Home} />
-                  <Route path="/life" component={Life} />
-                  <Route path="/home/articleList/:id" component={ArticleList} />
-                  <Route path="/home/article/:articleId" component={ArticleComponent} />
-                </Switch>
-              </section>
+              <Switch>
+                {
+                  routes.map((route, key) => {
+                    if(route.isExact){
+                      // return <Route key={key} exact path={route.path} component={route.component}/>
+                      return <Route
+                        key={key}
+                        exact
+                        path={route.path}
+                        render={props => (
+                          // pass the sub-routes down to keep nesting
+                          <route.component {...props} routes={route.routes} />
+                        )}></Route>
+                    }else{
+                      // return <Route  key={key}  path={route.path} component={route.component}/>
+                      return <Route
+                        key={key}
+                        path={route.path}
+                        render={props => (
+                          // pass the sub-routes down to keep nesting
+                          <route.component {...props} routes={route.routes} />
+                        )}></Route>
+                    }
+                  })
+                }
+                {/*<Route path="/home/articleList/:classifyId/:type" component={ArticleList} />*/}
+                {/*<Route path="/home/article/:articleId" component={ArticleComponent} />*/}
+              </Switch>
             </div>
           </div>
+          {/*滚动到顶部*/}
+          {/*eslint-disable*/}
+          {
+            this.state.showGoTopBtn ?
+              (<div className="go-top-btn" title="返回顶部">
+                <a href="javascript:window.scrollTo(0,0)">
+                  <Icon type="up-circle" />
+                </a>
+              </div>)
+              : null
+          }
         </div>
       </Router>
     )
   }
 }
 
+// export default App;
 export default App;
 

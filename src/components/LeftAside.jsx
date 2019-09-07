@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+// import { Spin, Alert } from 'antd';
 
 // connect方法的作用：将额外的props传递给组件，并返回新的组件，组件在该过程中不会受到影响
 import { connect } from 'react-redux';
@@ -7,13 +8,13 @@ import { connect } from 'react-redux';
 // 引入actions
 import {
   getAssignClassifyArticleList,
-  getAssignDateArticleList
+  getAssignDateArticleList,
+  getAssignArticle
 } from '../store/actions';
 
 import axios from 'axios';
 import moment from 'moment';
 import '../assets/style/leftAside.scss';
-// import {articleList} from "../store/reducers/home";
 
 class LeftAside extends Component {
   constructor (props) {
@@ -27,52 +28,80 @@ class LeftAside extends Component {
     }
   }
   componentDidMount () {
-    this.getData();
+    let activeHomeTab = localStorage.getItem('activeHomeTab')
+    this.initData()
+      .then(() => {
+        if (activeHomeTab) {
+          activeHomeTab = activeHomeTab.split('-')
+          this.setState({
+            activeTab: activeHomeTab[1]
+          });
+          this.props.history.push(`/home/articleList/${activeHomeTab[1]}/${activeHomeTab[0] === 'classify' ? 'classify' : 'date'}`);
+        } else {
+          debugger
+          this.setState({
+            activeTab: this.state.classifyList[0].notebookCode
+          });
+          this.props.history.push(`/home/articleList/${this.state.classifyList[0].notebookCode}/classify`);
+        }
+      })
   }
 
   // 获取指定分类的文章
   handleClassifyActicle = (classify) => {
+    // console.log('this.state.activeTab', this.state.activeTab)
+    if (Number(classify.notebookCode) === Number(this.state.activeTab)) return
+    localStorage.setItem('activeHomeTab', `classify-${classify.notebookCode}`)
     this.setState({
-      activeTab: classify._id
+      activeTab: classify.notebookCode
     });
     let { getAssignClassifyArticleList } = this.props;
-    getAssignClassifyArticleList(classify.notebookCode)
+    getAssignClassifyArticleList(classify.notebookCode);
   }
 
   // 获取指定日期的文章
   handleAssignDateActicle = (date) => {
+    if (Number(date) === Number(this.state.activeTab)) return
+    localStorage.setItem('activeHomeTab', `date-${date}`)
     this.setState({
       activeTab: date
     });
-    // console.log('date', date)
     let { getAssignDateArticleList } = this.props;
     getAssignDateArticleList(date)
   }
 
   // 获取指定文章
   handleAssignArtice = (article) => {
+    localStorage.setItem('activeHomeTab', `article-${article._id}`)
     this.setState({
       activeTab: article._id
     });
+    let { getAssignArticle } = this.props;
+    getAssignArticle(article._id)
   }
 
   // 获取数据
-  getData () {
-    axios.get('http://localhost:3000/api/blog/getAsideData')
-      .then(res => {
-        console.log(res.data);
-        let { classifyList, jottingsList, dateList } = res.data.asideNav;
-        this.setState({
-          classifyList,
-          jottingsList,
-          dateList
+  initData () {
+    return new Promise((resolve, reject) => {
+      axios.get(`${this.props.baseUrl}/api/blog/getAsideData`)
+        .then(res => {
+          // console.log(res.data);
+          let { classifyList, jottingsList, dateList } = res.data.asideNav;
+          this.setState({
+            classifyList,
+            jottingsList,
+            dateList
+          })
+          resolve()
         })
-      })
-      .catch(err => {
-        console.log(err)
-      })
+        .catch(err => {
+          console.log(err)
+          reject(err)
+        })
+    })
   }
   render() {
+    console.log('侧边栏', this.props)
     return (
       <div className="aside-nav-main-component">
         <div className="aside-nav-package-el">
@@ -84,8 +113,12 @@ class LeftAside extends Component {
                 this.state.classifyList.map((item) => {
                   return (
                     <li key={item._id} onClick={this.handleClassifyActicle.bind(this, item)} className="list-item">
-                      <i className="iconfont icon-biaoqian" style={{color: this.state.activeTab === item._id ? '#509827' : 'gray'}}></i>
-                      <Link to={`/home/articleList/${item._id}`} style={{color: this.state.activeTab === item._id ? '#509827' : '#333333'}}>{item.notebookName}</Link>
+                      <i className="iconfont icon-biaoqian" style={{color: this.state.activeTab === item.notebookCode ? '#509827' : 'gray'}}></i>
+                      <Link
+                        to={`/home/articleList/${item.notebookCode}/classify`}
+                        style={{color: this.state.activeTab === item.notebookCode ? '#509827' : '#333333'}}>
+                        {item.notebookName}
+                      </Link>
                       <span style={{color: 'gray'}}>({item.noteNum})</span>
                     </li>
                   )
@@ -93,9 +126,9 @@ class LeftAside extends Component {
               }
             </ul>
           </fieldset>
-          {/*随笔*/}
+          {/*生活随笔*/}
           <fieldset className="jottings-section aside-nav-item">
-            <legend>随笔</legend>
+            <legend>生活随笔</legend>
             <ul className="list">
               {
                 this.state.jottingsList.length ?
@@ -123,8 +156,12 @@ class LeftAside extends Component {
                 this.state.dateList.map((item) => {
                   return (
                     <li key={item} onClick={this.handleAssignDateActicle.bind(this, item)} className="list-item">
-                      <i className="iconfont icon-riqi" style={{color: this.state.activeTab === item ? '#509827' : 'gray'}}></i>
-                      <Link to={`/home/articleList/${item}`} style={{color: this.state.activeTab === item ? '#509827' : '#333333'}}>{moment(item).format('YYYY-MM-DD')}</Link>
+                      <i className="iconfont icon-riqi" style={{color: Number(this.state.activeTab) === item ? '#509827' : 'gray'}}></i>
+                      <Link
+                        to={`/home/articleList/${item}/date`}
+                        style={{color: Number(this.state.activeTab) === item ? '#509827' : '#333333'}}>
+                        {moment(item).format('YYYY-MM-DD')}
+                      </Link>
                     </li>
                   )
                 })
@@ -140,7 +177,9 @@ class LeftAside extends Component {
 // mapStateToProps: 将state映射到组件的props中
 const mapStateToProps = (state) => {
   return {
-    articleList: state.articleList
+    articleList: state.articleList,
+    baseUrl: state.baseUrl,
+    activeHomeTab: state.activeHomeTab
   }
 }
 
@@ -152,8 +191,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getAssignDateArticleList (data) {
       dispatch(getAssignDateArticleList(data))
+    },
+    getAssignArticle (data) {
+      dispatch(getAssignArticle(data))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftAside)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LeftAside));

@@ -1,6 +1,11 @@
 // 引入默认值
 import defaultState from '../state';
 
+// 网络请求地址
+export const baseUrl = (state = defaultState.baseUrl, action) => {
+  return state
+}
+
 // 文章列表
 export const articleList = (state = defaultState.articleList, action) => {
   switch (action.type) {

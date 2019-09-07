@@ -11,6 +11,7 @@ body, dl, dt, dd, ul, ol, li, form, fieldset, input, p, blockquote, th, td {
 h1, h2, h3, h4, h4, h5 {
   margin:0;
   padding:0;
+  font-weight: bold;
 }
 body {
   background-color:#f7f7f7;

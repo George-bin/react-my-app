@@ -8,17 +8,13 @@ import {
 
 class ArticleContent extends Component {
   componentDidMount() {
-    let { pathname } = this.props.location;
+    let { articleId } = this.props.match.params;
     let { getAssignArticle } = this.props;
-    pathname = pathname.split('/');
-    let articleId = pathname[pathname.length - 1];
     getAssignArticle(articleId)
-    console.log('this.props.location', this.props.location)
   }
 
   render () {
-    console.log('ArticleContent', this.props.location)
-    // let article = this.props.location.state;
+    // console.log('ArticleContent', this.props.location)
     let { activeArticle } = this.props;
     return (
       <div className="article-content-main-component">
