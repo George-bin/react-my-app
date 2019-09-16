@@ -38,7 +38,6 @@ class LeftAside extends Component {
           });
           this.props.history.push(`/home/articleList/${activeHomeTab[1]}/${activeHomeTab[0] === 'classify' ? 'classify' : 'date'}`);
         } else {
-          debugger
           this.setState({
             activeTab: this.state.classifyList[0].notebookCode
           });
