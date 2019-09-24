@@ -1,7 +1,7 @@
 .article-content-main-component {
   padding: 20px 30px;
-  background: #FFFFFF;
-  border-radius: 8px;
+  background: #ffffff;
+  border-radius: 4px;
   .article-title {
     font-size: 18px;
     color: #509827;
@@ -24,13 +24,17 @@
     }
   }
   .article-content {
+    img {
+      max-width: 100% !important;
+    }
     strong {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
     }
-    p, li {
+    p,
+    li {
       font-size: 14px;
-      line-height: 22px;
+      //line-height: 22px;
     }
     li {
       list-style-type: disc;

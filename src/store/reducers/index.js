@@ -1,13 +1,13 @@
 // 工具函数用于组织多个reducers，并返回reducers集合
 import { combineReducers } from 'redux';
 import { todoList } from './todo';
-import { articleList, activeArticle, baseUrl } from './home';
+import { classifyInfo, activeArticle, lifeArticleList } from './home';
 
-const todoApp = combineReducers({
-  baseUrl,
+const blogApp = combineReducers({
+  lifeArticleList,
   todoList,
-  articleList,
+  classifyInfo,
   activeArticle
 })
 
-export default todoApp;
+export default blogApp;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router';
+// import { Spin, Alert } from 'antd';
 import LeftAside from '../../components/LeftAside';
-import './css/home.scss';
-import { Route, Switch } from "react-router";
+import '../../assets/style/home.scss';
 
 let asideNav = {
   classify: {
@@ -25,6 +26,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="home-main-component">
+        {/*<Spin tip="加载中..."></Spin>*/}
         <aside >
           <LeftAside asideNav={asideNav} />
         </aside>

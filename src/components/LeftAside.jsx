@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 // import { Spin, Alert } from 'antd';
+import { getAsideListRequest } from '../api/home';
 
 // connect方法的作用：将额外的props传递给组件，并返回新的组件，组件在该过程中不会受到影响
 import { connect } from 'react-redux';
@@ -9,10 +10,11 @@ import { connect } from 'react-redux';
 import {
   getAssignClassifyArticleList,
   getAssignDateArticleList,
-  getAssignArticle
+  getAssignArticle,
+  getLifeArticleList
 } from '../store/actions';
 
-import axios from 'axios';
+// import axios from 'axios';
 import moment from 'moment';
 import '../assets/style/leftAside.scss';
 
@@ -21,29 +23,16 @@ class LeftAside extends Component {
     super(props);
     this.state = {
       classifyList: [],
-      jottingsList: [],
+      lifeArticleList: [],
       dateList: [],
       // 当前选中的模块
       activeTab: ''
     }
   }
   componentDidMount () {
-    let activeHomeTab = localStorage.getItem('activeHomeTab')
+    // let { getLifeArticleList } = this.props
+    // getLifeArticleList()
     this.initData()
-      .then(() => {
-        if (activeHomeTab) {
-          activeHomeTab = activeHomeTab.split('-')
-          this.setState({
-            activeTab: activeHomeTab[1]
-          });
-          this.props.history.push(`/home/articleList/${activeHomeTab[1]}/${activeHomeTab[0] === 'classify' ? 'classify' : 'date'}`);
-        } else {
-          this.setState({
-            activeTab: this.state.classifyList[0].notebookCode
-          });
-          this.props.history.push(`/home/articleList/${this.state.classifyList[0].notebookCode}/classify`);
-        }
-      })
   }
 
   // 获取指定分类的文章
@@ -55,7 +44,7 @@ class LeftAside extends Component {
       activeTab: classify.notebookCode
     });
     let { getAssignClassifyArticleList } = this.props;
-    getAssignClassifyArticleList(classify.notebookCode);
+    getAssignClassifyArticleList({ classifyId: classify.notebookCode });
   }
 
   // 获取指定日期的文章
@@ -66,7 +55,7 @@ class LeftAside extends Component {
       activeTab: date
     });
     let { getAssignDateArticleList } = this.props;
-    getAssignDateArticleList(date)
+    getAssignDateArticleList({ date })
   }
 
   // 获取指定文章
@@ -81,26 +70,46 @@ class LeftAside extends Component {
 
   // 获取数据
   initData () {
-    return new Promise((resolve, reject) => {
-      axios.get(`${this.props.baseUrl}/api/blog/getAsideData`)
-        .then(res => {
-          // console.log(res.data);
-          let { classifyList, jottingsList, dateList } = res.data.asideNav;
+    getAsideListRequest()
+      .then(res => {
+        // console.log(res.data);
+        let { classifyList, lifeArticleList, dateList } = res.data.asideNav;
+        let activeHomeTab = localStorage.getItem('activeHomeTab')
+        this.setState({
+          classifyList,
+          lifeArticleList,
+          dateList
+        })
+        if (activeHomeTab) {
+          activeHomeTab = activeHomeTab.split('-')
           this.setState({
-            classifyList,
-            jottingsList,
-            dateList
-          })
-          resolve()
-        })
-        .catch(err => {
-          console.log(err)
-          reject(err)
-        })
-    })
+            activeTab: activeHomeTab[1]
+          });
+          switch (activeHomeTab[0]) {
+            case 'classify':
+              this.props.history.push(`/home/articleList/${activeHomeTab[1]}/classify`);
+              break;
+            case 'date':
+              this.props.history.push(`/home/articleList/${activeHomeTab[1]}/date`);
+              break;
+            default:
+              this.props.history.push(`/home/article/${activeHomeTab[1]}`);
+          }
+        } else {
+          this.setState({
+            activeTab: this.state.classifyList[0].notebookCode
+          });
+          this.props.history.push(`/home/articleList/${this.state.classifyList[0].notebookCode}/classify`);
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+
   }
   render() {
-    console.log('侧边栏', this.props)
+    // console.log('侧边栏', this.props)
     return (
       <div className="aside-nav-main-component">
         <div className="aside-nav-package-el">
@@ -112,10 +121,10 @@ class LeftAside extends Component {
                 this.state.classifyList.map((item) => {
                   return (
                     <li key={item._id} onClick={this.handleClassifyActicle.bind(this, item)} className="list-item">
-                      <i className="iconfont icon-biaoqian" style={{color: this.state.activeTab === item.notebookCode ? '#509827' : 'gray'}}></i>
+                      <i className="iconfont icon-biaoqian" style={{color: this.state.activeTab === item.notebookCode ? '#1890ff' : 'gray'}}></i>
                       <Link
                         to={`/home/articleList/${item.notebookCode}/classify`}
-                        style={{color: this.state.activeTab === item.notebookCode ? '#509827' : '#333333'}}>
+                        style={{color: this.state.activeTab === item.notebookCode ? '#1890ff' : '#333333'}}>
                         {item.notebookName}
                       </Link>
                       <span style={{color: 'gray'}}>({item.noteNum})</span>
@@ -130,16 +139,16 @@ class LeftAside extends Component {
             <legend>生活随笔</legend>
             <ul className="list">
               {
-                this.state.jottingsList.length ?
-                  this.state.jottingsList.map((item) => {
+                this.state.lifeArticleList.length ?
+                  this.state.lifeArticleList.map((item) => {
                   let state = {
                     pathname: `/home/article/${item._id}`,
                     state: item
                   }
                   return (
                     <li key={item._id} className="list-item" onClick={this.handleAssignArtice.bind(this, item)}>
-                      <i className="iconfont icon-wendang" style={{color: this.state.activeTab === item._id ? '#509827' : 'gray'}}></i>
-                      <Link to={state} style={{color: this.state.activeTab === item._id ? '#509827' : 'gray'}}>{item.noteName}</Link>
+                      <i className="iconfont icon-wendang" style={{color: this.state.activeTab === item._id ? '#1890ff' : 'gray'}}></i>
+                      <Link to={state} style={{color: this.state.activeTab === item._id ? '#1890ff' : 'gray'}}>{item.noteName}</Link>
                     </li>
                   )
                 }):
@@ -155,10 +164,10 @@ class LeftAside extends Component {
                 this.state.dateList.map((item) => {
                   return (
                     <li key={item} onClick={this.handleAssignDateActicle.bind(this, item)} className="list-item">
-                      <i className="iconfont icon-riqi" style={{color: Number(this.state.activeTab) === item ? '#509827' : 'gray'}}></i>
+                      <i className="iconfont icon-riqi" style={{color: Number(this.state.activeTab) === item ? '#1890ff' : 'gray'}}></i>
                       <Link
                         to={`/home/articleList/${item}/date`}
-                        style={{color: Number(this.state.activeTab) === item ? '#509827' : '#333333'}}>
+                        style={{color: Number(this.state.activeTab) === item ? '#1890ff' : '#333333'}}>
                         {moment(item).format('YYYY-MM-DD')}
                       </Link>
                     </li>
@@ -177,7 +186,6 @@ class LeftAside extends Component {
 const mapStateToProps = (state) => {
   return {
     articleList: state.articleList,
-    baseUrl: state.baseUrl,
     activeHomeTab: state.activeHomeTab
   }
 }
@@ -193,6 +201,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     getAssignArticle (data) {
       dispatch(getAssignArticle(data))
+    },
+    getLifeArticleList () {
+      dispatch(getLifeArticleList())
     }
   }
 }

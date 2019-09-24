@@ -2,24 +2,24 @@
   .article-list-title {
     height: 30px;
     line-height: 30px;
-    border: 1px solid #509827;
+    border: 1px solid #1890ff;
     border-radius: 4px;
     font-size: 16px;
     font-weight: normal;
     text-align: center;
-    background: rgba(126, 163, 105, 0.2);
+    background: rgba(130, 219, 255, 0.2);
   }
   .article-list-section {
     padding: 0 30px;
     margin-top: 20px;
-    border-radius: 8px;
-    background: #FFFFFF;
+    border-radius: 4px;
+    background: #ffffff;
     .article-list-item {
       padding: 20px 0;
       .article-title {
         font-size: 18px;
         //font-weight: normal;
-        color: #509827;
+        color: #1890ff;
       }
       .article-other-info {
         display: flex;
@@ -40,10 +40,11 @@
       }
       .article-content {
         strong {
-          font-size: 16px;
+          font-size: 14px;
           font-weight: bold;
         }
-        p, li {
+        p,
+        li {
           font-size: 14px;
           line-height: 22px;
         }
@@ -51,19 +52,30 @@
           list-style-type: disc;
           margin-left: 20px;
         }
+        img {
+          max-width: 100% !important;
+        }
       }
       .article-footer {
+        margin-top: 10px;
         font-size: 14px;
         text-align: right;
         a {
-          color: #509827;
+          color: #1890ff;
+        }
+        .no-content-tip {
+          color: gray;
         }
       }
     }
     .article-list-item + .article-list-item {
       padding-top: 20px;
-      border-top: 1px solid #DFDFDF;
+      border-top: 1px solid #dfdfdf;
     }
+  }
+  .ant-pagination {
+    margin-top: 20px;
+    text-align: center;
   }
   .none-article {
     margin-top: 20px;
