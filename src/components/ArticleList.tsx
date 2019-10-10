@@ -9,10 +9,39 @@ import {
   getAssignDateArticleList
 } from "../store/actions";
 
-class ArticleList extends Component {
-  constructor(props) {
+// 语法高亮
+import marked from "marked";
+import hljs from "highlight.js";
+import "highlight.js/styles/github.css";
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: false,
+  pedantic: false,
+  sanitize: false,
+  tables: true,
+  breaks: true,
+  smartLists: true,
+  smartypants: true,
+  xhtml: true,
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  }
+});
+
+interface IProps {
+  match: any;
+  getAssignClassifyArticleList: any;
+  getAssignDateArticleList: any;
+  classifyInfo: any;
+}
+interface IState {
+  count: number;
+}
+
+class ArticleList extends Component<IProps, IState> {
+  constructor(props: any) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {
@@ -28,7 +57,7 @@ class ArticleList extends Component {
   }
 
   // 获取指定页面的文章
-  handleGetArticleList(e) {
+  handleGetArticleList(e: any) {
     console.log(e);
     let { getAssignClassifyArticleList, getAssignDateArticleList } = this.props;
     let { classifyId, type } = this.props.match.params;
@@ -67,7 +96,7 @@ class ArticleList extends Component {
         {classifyInfo.articleList.length ? (
           <div className="article-list-section">
             <ul className="article-list">
-              {classifyInfo.articleList.map((article, index) => {
+              {classifyInfo.articleList.map((article: any, index: number) => {
                 let state = {
                   pathname: `/home/article/${article._id}`,
                   state: article
@@ -91,11 +120,13 @@ class ArticleList extends Component {
                       <div
                         className="article-content"
                         dangerouslySetInnerHTML={{
-                          __html: article.noteContent.substring(0, 400)
+                          __html: article.noteContent
+                            ? marked(article.noteContent.substring(0, 400))
+                            : article.noteContent
                         }}
                       ></div>
                       <footer className="article-footer">
-                        {article.noteLabel === 'main-body' ? (
+                        {article.noteLabel === "main-body" ? (
                           <Link to={state}>阅读全文</Link>
                         ) : (
                           <p className="no-content-tip">草稿!</p>
@@ -127,18 +158,18 @@ class ArticleList extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
   return {
     classifyInfo: state.classifyInfo
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    getAssignClassifyArticleList(data) {
+    getAssignClassifyArticleList(data: any) {
       dispatch(getAssignClassifyArticleList(data));
     },
-    getAssignDateArticleList(data) {
+    getAssignDateArticleList(data: any) {
       dispatch(getAssignDateArticleList(data));
     }
   };

@@ -113,12 +113,23 @@ body,
 pre {
   margin: 20px 0 0;
   padding: 10px;
-  color: #dcdcdc;
-  background: #1c2327;
+  border: 1px solid #d2d2d2;
+  color: #333333;
+  background: #f7f7f7;
   border-radius: 4px;
   /*letter-spacing: 1px;*/
   word-spacing: 2px;
-  font-family: "Microsoft YaHei", Helvetica, Arial, sans-serif;
+}
+
+pre p,
+pre span,
+pre strong {
+  font-size: 12px !important;
+}
+
+pre,
+code {
+  font-family: Consolas;
 }
 
 a {

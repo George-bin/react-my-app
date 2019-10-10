@@ -9,7 +9,10 @@ export function getAsideListRequest() {
 }
 
 // 获取指定分类的文章列表
-export function getAssignClassifyArticleListRequest({ classifyId, page = 1 }) {
+export function getAssignClassifyArticleListRequest({
+  classifyId = "",
+  page = 1
+}) {
   // console.log('classifyId', classifyId)
   return request({
     url: `/getClassifyArticle/${classifyId}?page=${page}&limit=4`,
@@ -18,7 +21,7 @@ export function getAssignClassifyArticleListRequest({ classifyId, page = 1 }) {
 }
 
 // 获取指定日期的文章列表
-export function getAssignDateArticleListRequest({ date, page = 1 }) {
+export function getAssignDateArticleListRequest({ date = "", page = 1 }) {
   return request({
     url: `/getAssignDateArticle/${date}?page=${page}&limit=4`,
     method: "get"
@@ -26,7 +29,7 @@ export function getAssignDateArticleListRequest({ date, page = 1 }) {
 }
 
 // 获取指定文章内容
-export function getAssignArticleRequest(articleId) {
+export function getAssignArticleRequest(articleId: any) {
   return request({
     url: `/getAssignArticle/${articleId}`,
     method: "get"
@@ -38,5 +41,5 @@ export function getLifeArticleListRequest({ page = 1 }) {
   return request({
     url: `/getLifeArticleList?page=${page}&limit=4`,
     method: "get"
-  })
+  });
 }
