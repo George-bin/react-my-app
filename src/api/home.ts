@@ -43,3 +43,14 @@ export function getLifeArticleListRequest({ page = 1 }) {
     method: "get"
   });
 }
+
+// 获取搜索内容
+export function getSearchArticleRequest(keyWords: string) {
+  return request({
+    url: "/searchArticle",
+    method: "post",
+    data: {
+      keyWords
+    }
+  });
+}

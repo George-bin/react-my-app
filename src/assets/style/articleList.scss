@@ -10,12 +10,12 @@
     background: rgba(130, 219, 255, 0.2);
   }
   .article-list-section {
-    padding: 0 30px;
     margin-top: 20px;
     border-radius: 4px;
-    background: #ffffff;
     .article-list-item {
-      padding: 20px 0;
+      padding: 20px 30px;
+      background: #ffffff;
+      border-radius: 4px;
       .article-title {
         font-size: 18px;
         //font-weight: normal;
@@ -69,8 +69,7 @@
       }
     }
     .article-list-item + .article-list-item {
-      padding-top: 20px;
-      border-top: 1px solid #dfdfdf;
+      margin-top: 20px;
     }
   }
   .ant-pagination {
@@ -87,6 +86,35 @@
     p {
       font-size: 14px;
       margin-top: 10px;
+    }
+  }
+}
+
+/*媒体查询 <1200px*/
+@media (max-width: 1200px) {
+}
+
+/*媒体查询 1000px~1200px*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+}
+
+/*媒体查询 <768*/
+@media (max-width: 768px) {
+}
+
+/*媒体查询 480px~768px*/
+@media (min-width: 480px) and (max-width: 768px) {
+}
+
+/*媒体查询，大于480小于640*/
+@media (max-width: 480px) {
+  .article-list-main-components {
+    .article-list-section {
+      .article-list {
+        .article-list-item {
+          padding: 10px;
+        }
+      }
     }
   }
 }

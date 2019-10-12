@@ -2,9 +2,43 @@
   display: flex;
   .main-screen-section {
     flex: 1;
-    // flex-shrink: 0;
     margin-top: 32px;
-    padding: 0 20px 20px;
+    padding: 0 20px 20px 0;
     overflow: hidden;
+  }
+}
+
+/*媒体查询 <1200px*/
+@media (max-width: 1200px) {
+}
+
+/*媒体查询 1000px~1200px*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+}
+
+/*媒体查询 <768*/
+@media (max-width: 768px) {
+  .home-main-component {
+    .main-screen-section {
+      padding-right: 0;
+    }
+    .aside-nav-section {
+      .aside-nav-package-el {
+        display: none;
+      }
+    }
+  }
+}
+
+/*媒体查询 480px~768px*/
+@media (min-width: 480px) and (max-width: 768px) {
+}
+
+/*媒体查询，大于480小于640*/
+@media (max-width: 480px) {
+  .home-main-component {
+    .main-screen-section {
+      margin-top: 10px;
+    }
   }
 }

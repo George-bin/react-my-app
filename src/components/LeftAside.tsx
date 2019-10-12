@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-// import { Spin, Alert } from 'antd';
+import { Icon } from "antd";
 import { getAsideListRequest } from "../api/home";
 
 // connect方法的作用：将额外的props传递给组件，并返回新的组件，组件在该过程中不会受到影响
@@ -24,12 +24,15 @@ interface IProps {
   getAssignDateArticleList: any;
   getAssignArticle: any;
   history: any;
+  activeArticle: any;
+  location: any;
 }
 interface IState {
   classifyList: any;
   lifeArticleList: any;
   dateList: any;
   activeTab: string;
+  showSmallScreenMenu: boolean;
 }
 
 class LeftAside extends Component<IProps, IState> {
@@ -40,7 +43,9 @@ class LeftAside extends Component<IProps, IState> {
       lifeArticleList: [],
       dateList: [],
       // 当前选中的模块
-      activeTab: ""
+      activeTab: "",
+      // 小屏菜单
+      showSmallScreenMenu: false
     };
   }
   componentDidMount() {
@@ -51,6 +56,9 @@ class LeftAside extends Component<IProps, IState> {
 
   // 获取指定分类的文章
   handleClassifyActicle = (classify: any) => {
+    // 初始化activeReadPages start
+    localStorage.setItem("activeReadPages", "1");
+    // 初始化activeReadPages end
     // console.log('this.state.activeTab', this.state.activeTab)
     if (Number(classify.notebookCode) === Number(this.state.activeTab)) return;
     localStorage.setItem("activeHomeTab", `classify-${classify.notebookCode}`);
@@ -59,10 +67,15 @@ class LeftAside extends Component<IProps, IState> {
     });
     let { getAssignClassifyArticleList } = this.props;
     getAssignClassifyArticleList({ classifyId: classify.notebookCode });
+    // 滚动到页面顶部
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
   };
 
   // 获取指定日期的文章
   handleAssignDateActicle = (date: any) => {
+    // 初始化activeReadPages start
+    localStorage.setItem("activeReadPages", "1");
+    // 初始化activeReadPages end
     if (Number(date) === Number(this.state.activeTab)) return;
     localStorage.setItem("activeHomeTab", `date-${date}`);
     this.setState({
@@ -70,6 +83,8 @@ class LeftAside extends Component<IProps, IState> {
     });
     let { getAssignDateArticleList } = this.props;
     getAssignDateArticleList({ date });
+    // 滚动到页面顶部
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
   };
 
   // 获取指定文章
@@ -80,6 +95,16 @@ class LeftAside extends Component<IProps, IState> {
     });
     let { getAssignArticle } = this.props;
     getAssignArticle(article._id);
+    // 滚动到页面顶部
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
+  };
+
+  // 打开/关闭小屏菜单
+  handleOpenSmallScreenMenu = () => {
+    console.log("小屏菜单");
+    this.setState({
+      showSmallScreenMenu: !this.state.showSmallScreenMenu
+    });
   };
 
   // 获取数据
@@ -127,9 +152,13 @@ class LeftAside extends Component<IProps, IState> {
       });
   }
   render() {
-    // console.log('侧边栏', this.props)
+    let { activeArticle } = this.props;
+    let { pathname } = this.props.location;
+    let { showSmallScreenMenu } = this.state;
+    // console.log("侧边栏", this.props.location);
     return (
       <div className="aside-nav-main-component">
+        {/* 大屏右侧菜单 */}
         <div className="aside-nav-package-el">
           {/*分类*/}
           <fieldset className="classify-section aside-nav-item">
@@ -145,19 +174,29 @@ class LeftAside extends Component<IProps, IState> {
                     <i
                       className="iconfont icon-biaoqian"
                       style={{
-                        color:
-                          this.state.activeTab === item.notebookCode
+                        color: /home\/articleList\/(.+)\/classify/g.test(
+                          pathname
+                        )
+                          ? this.state.activeTab === item.notebookCode
                             ? "#1890ff"
                             : "gray"
+                          : activeArticle.notebookCode === item.notebookCode
+                          ? "#1890ff"
+                          : "gray"
                       }}
                     ></i>
                     <Link
                       to={`/home/articleList/${item.notebookCode}/classify`}
                       style={{
-                        color:
-                          this.state.activeTab === item.notebookCode
+                        color: /home\/articleList\/(.+)\/classify/g.test(
+                          pathname
+                        )
+                          ? this.state.activeTab === item.notebookCode
                             ? "#1890ff"
                             : "#333333"
+                          : activeArticle.notebookCode === item.notebookCode
+                          ? "#1890ff"
+                          : "#333333"
                       }}
                     >
                       {item.notebookName}
@@ -252,6 +291,76 @@ class LeftAside extends Component<IProps, IState> {
             </ul>
           </fieldset>
         </div>
+        {/* 移动端左侧滑动菜单 */}
+        <div
+          className="small-screen-aside-menu"
+          style={{
+            transform: showSmallScreenMenu
+              ? "translate3d(0, 0, 0)"
+              : "translate3d(-200px, 0, 0)"
+          }}
+        >
+          <ul
+            className="classify-list"
+            style={{
+              boxShadow: showSmallScreenMenu ? "5px 0 10px #e4e4e4" : "none"
+            }}
+          >
+            {this.state.classifyList.map((item: any) => {
+              return (
+                <li
+                  key={item._id}
+                  onClick={this.handleClassifyActicle.bind(this, item)}
+                  className="classify-list-item"
+                >
+                  <i
+                    className="iconfont icon-biaoqian"
+                    style={{
+                      color: /home\/articleList\/(.+)\/classify/g.test(pathname)
+                        ? this.state.activeTab === item.notebookCode
+                          ? "#1890ff"
+                          : "gray"
+                        : activeArticle.notebookCode === item.notebookCode
+                        ? "#1890ff"
+                        : "gray"
+                    }}
+                  ></i>
+                  <Link
+                    to={`/home/articleList/${item.notebookCode}/classify`}
+                    style={{
+                      color: /home\/articleList\/(.+)\/classify/g.test(pathname)
+                        ? this.state.activeTab === item.notebookCode
+                          ? "#1890ff"
+                          : "#333333"
+                        : activeArticle.notebookCode === item.notebookCode
+                        ? "#1890ff"
+                        : "#333333"
+                    }}
+                  >
+                    {item.notebookName}
+                  </Link>
+                  <span style={{ color: "gray" }}>({item.noteNum})</span>
+                </li>
+              );
+            })}
+          </ul>
+          {/* 小屏菜单开关 */}
+          {!showSmallScreenMenu ? (
+            <div
+              className="switch-btn"
+              onClick={this.handleOpenSmallScreenMenu.bind(this)}
+            >
+              <Icon type="right" />
+            </div>
+          ) : null}
+        </div>
+        {/* 背景层 */}
+        {showSmallScreenMenu ? (
+          <div
+            className="small-screen-aside-menu-bg"
+            onClick={this.handleOpenSmallScreenMenu.bind(this)}
+          ></div>
+        ) : null}
       </div>
     );
   }
@@ -261,7 +370,8 @@ class LeftAside extends Component<IProps, IState> {
 const mapStateToProps = (state: any) => {
   return {
     articleList: state.articleList,
-    activeHomeTab: state.activeHomeTab
+    activeHomeTab: state.activeHomeTab,
+    activeArticle: state.activeArticle
   };
 };
 

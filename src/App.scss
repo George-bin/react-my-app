@@ -1,88 +1,46 @@
 html,
 body {
-  background: #e9eaed;
+  background: #f1f1f1;
 }
 
 .app {
   height: 100%;
-  background: #e9eaed;
-  .header-container {
-    background: #1c2327;
-    &::before {
-      background: #000
-        linear-gradient(
-          to left,
-          #4cd964,
-          #5ac8fa,
-          #007aff,
-          #34aadc,
-          #5856d6,
-          #ff2d55
-        );
-      content: "";
-      height: 5px;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-    .header-container-package-el {
-      display: flex;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-      padding: 10px;
-      padding-top: 15px;
-      .main-title {
-        display: flex;
-        align-items: flex-end;
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-        }
-        h1 {
-          margin-left: 10px;
-          font-size: 22px;
-          font-weight: normal;
-          color: #f7f7f7;
-          span {
-            margin-left: 10px;
-            font-size: 14px;
-            // color: #333333;
-          }
-        }
-      }
-      .main-nav {
-        flex: 1;
-        .aside-nav-list-section {
-          display: flex;
-          flex-direction: row-reverse;
-          .aside-nav-list-item {
-            width: 60px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            background: #f7f7f7;
-            &:hover {
-              background: #dfdfdf;
-            }
-            a {
-              display: block;
-              height: 100%;
-              color: #1890ff;
-              text-decoration: none;
-            }
-          }
-        }
-      }
-    }
-  }
+  background: #f1f1f1;
   .content-container {
-    height: calc(100vh - 140px);
     .content-container-package-el {
       max-width: 1200px;
-      //height: 100%;
       margin: auto;
+      margin-top: 60px;
+    }
+  }
+}
+
+/*媒体查询 <1200px*/
+@media (max-width: 1200px) {
+  .content-container {
+    padding: 0 20px;
+  }
+}
+
+/*媒体查询 1000px~1200px*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+}
+
+/*媒体查询 <768*/
+@media (max-width: 768px) {
+}
+
+/*媒体查询 480px~768px*/
+@media (min-width: 480px) and (max-width: 768px) {
+}
+
+/*媒体查询，大于480小于640*/
+@media (max-width: 480px) {
+  .app {
+    .content-container {
+      .content-container-package-el {
+        // margin-top: 40px;
+      }
     }
   }
 }

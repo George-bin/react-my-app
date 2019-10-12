@@ -3,6 +3,7 @@ import "../assets/style/articleContent.scss";
 import moment from "moment";
 import { connect } from "react-redux";
 import { getAssignArticle } from "../store/actions/home";
+
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
@@ -10,13 +11,13 @@ import "highlight.js/styles/github.css";
 marked.setOptions({
   renderer: new marked.Renderer(),
   gfm: true,
-  pedantic: true,
+  pedantic: false,
   sanitize: false,
   tables: true,
   breaks: true,
   smartLists: true,
   smartypants: true,
-  highlight: function(code) {
+  highlight: function (code) {
     return hljs.highlightAuto(code).value;
   }
 });

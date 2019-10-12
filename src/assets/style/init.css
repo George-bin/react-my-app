@@ -143,3 +143,9 @@ a {
 .article-content h3 strong {
   font-size: 15px !important;
 }
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

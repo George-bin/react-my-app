@@ -7,7 +7,7 @@
     .aside-nav-item {
       //border: 1px solid #DFDFDF;
       border: none;
-      background: #FFFFFF;
+      background: #ffffff;
       border-radius: 4px;
       legend {
         margin-left: 10px;
@@ -41,6 +41,87 @@
     .no-content {
       padding: 10px;
       color: gray;
+    }
+  }
+  // 小屏菜单
+  .small-screen-aside-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    height: 100vh;
+    transform: translate3d(-200px, 0, 0);
+    transition: all 0.3s;
+    z-index: 2;
+    .switch-btn {
+      display: flex;
+      align-items: center;
+      width: 20px;
+      height: 40px;
+      margin-top: 80px;
+      color: white;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 0 20px 20px 0;
+      .anticon-right,
+      .anticon-left {
+        font-size: 16px;
+      }
+    }
+    .classify-list {
+      width: 200px;
+      height: 100%;
+      padding: 10px;
+      background: white;
+      overflow: auto;
+      .classify-list-item {
+        display: flex;
+        justify-content: space-between;
+        height: 34px;
+        line-height: 34px;
+        border-bottom: 1px solid #f7f7f7;
+        font-size: 15px;
+        a {
+          flex: 1;
+          width: 100px;
+          margin-left: 5px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  .small-screen-aside-menu-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+/*媒体查询 <1200px*/
+@media (max-width: 1200px) {
+}
+
+/*媒体查询 1000px~1200px*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+}
+
+/*媒体查询 <768*/
+@media (max-width: 768px) {
+}
+
+/*媒体查询 480px~768px*/
+@media (min-width: 480px) and (max-width: 768px) {
+}
+
+/*媒体查询 <480*/
+@media (max-width: 480px) {
+  .aside-nav-main-component {
+    .small-screen-aside-menu {
+      display: flex;
     }
   }
 }

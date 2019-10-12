@@ -16,14 +16,13 @@ import "highlight.js/styles/github.css";
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  gfm: false,
+  gfm: true,
   pedantic: false,
   sanitize: false,
   tables: true,
   breaks: true,
   smartLists: true,
   smartypants: true,
-  xhtml: true,
   highlight: function(code) {
     return hljs.highlightAuto(code).value;
   }
@@ -36,29 +35,42 @@ interface IProps {
   classifyInfo: any;
 }
 interface IState {
-  count: number;
+  activePages: number;
 }
 
 class ArticleList extends Component<IProps, IState> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      activePages: 1
+    };
   }
 
   componentDidMount() {
     // let pagingConfig = localStorage.getItem('pagingConfig');
-    console.log("获取文章列表:", this.props);
+    // console.log("获取文章列表:", this.props);
     let { getAssignClassifyArticleList, getAssignDateArticleList } = this.props;
     let { classifyId, type } = this.props.match.params;
+    let page = localStorage.getItem("activeReadPages")
+      ? Number(localStorage.getItem("activeReadPages"))
+      : 1;
+    this.setState({
+      activePages: page
+    });
     if (type === "classify") {
-      getAssignClassifyArticleList({ classifyId });
+      getAssignClassifyArticleList({ classifyId, page });
     } else {
-      getAssignDateArticleList({ date: classifyId });
+      getAssignDateArticleList({ date: classifyId, page });
     }
   }
 
   // 获取指定页面的文章
   handleGetArticleList(e: any) {
-    console.log(e);
+    localStorage.setItem("activeReadPages", e);
+    this.setState({
+      activePages: e
+    });
+    // console.log(e);
     let { getAssignClassifyArticleList, getAssignDateArticleList } = this.props;
     let { classifyId, type } = this.props.match.params;
     if (type === "classify") {
@@ -66,6 +78,12 @@ class ArticleList extends Component<IProps, IState> {
     } else {
       getAssignDateArticleList({ date: classifyId, page: e });
     }
+  }
+
+  // 阅读更多
+  handleReadMore() {
+    // 滚动到页面顶部
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
 
   render() {
@@ -125,9 +143,12 @@ class ArticleList extends Component<IProps, IState> {
                             : article.noteContent
                         }}
                       ></div>
-                      <footer className="article-footer">
+                      <footer
+                        className="article-footer"
+                        onClick={this.handleReadMore.bind(this)}
+                      >
                         {article.noteLabel === "main-body" ? (
-                          <Link to={state}>阅读全文</Link>
+                          <Link to={state}>Read More</Link>
                         ) : (
                           <p className="no-content-tip">草稿!</p>
                         )}
@@ -149,6 +170,7 @@ class ArticleList extends Component<IProps, IState> {
           <Pagination
             defaultCurrent={1}
             defaultPageSize={4}
+            current={this.state.activePages}
             total={classifyInfo.count}
             onChange={this.handleGetArticleList.bind(this)}
           />

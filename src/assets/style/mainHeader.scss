@@ -1,0 +1,247 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+  background: white;
+  // background: #4bb8c5;
+  z-index: 1;
+  .header-container-package-el {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    height: 59px;
+    margin: auto;
+    .main-title {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      h1 {
+        margin-left: 10px;
+        font-size: 22px;
+        font-weight: normal;
+        color: #1e90ff;
+        span {
+          margin-left: 10px;
+          font-size: 14px;
+          font-weight: normal;
+          letter-spacing: 2px;
+          color: #333333;
+        }
+      }
+    }
+    .search-section {
+      position: relative;
+      height: 30px;
+      // background: red;
+      .search-inp-box {
+        height: 30px;
+        background: #efefef;
+        border-radius: 20px;
+        transition: all 0.3s;
+        overflow: hidden;
+        .search-inp {
+          height: 30px;
+          padding-left: 10px;
+          border: 0;
+          outline: none;
+          background: none;
+        }
+      }
+      .icon-sousuo {
+        font-weight: bold;
+        color: #adadad;
+        cursor: pointer;
+      }
+      .search-btn {
+        position: absolute;
+        right: 10px;
+        top: 2px;
+        color: #333333;
+      }
+      .search-article-list {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        width: 240px;
+        padding: 10px;
+        border: 1px solid #d2d2d2;
+        color: #4e6e8e;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0 5px 5px #dfdfdf;
+        z-index: 999;
+        .search-article-list-item {
+          padding: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          &:hover {
+            color: #1890ff;
+            background: #f7f7f7;
+            border-radius: 3px;
+          }
+          .des {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 10px;
+            color: gray;
+            .note-book-name {
+              width: 100px;
+            }
+          }
+        }
+        .search-article-list-item + .search-article-list-item {
+          border-top: 1px solid #f7f7f7;
+        }
+      }
+    }
+    .main-nav {
+      margin-left: 10px;
+      .aside-nav-list-section {
+        text-align: right;
+        .aside-nav-list-item {
+          display: inline-block;
+          width: 50px;
+          height: 36px;
+          line-height: 36px;
+          font-size: 16px;
+          text-align: center;
+          &:hover {
+            border-bottom: 2px solid #6cafec;
+          }
+          a {
+            display: block;
+            height: 100%;
+            color: #333333;
+            text-decoration: none;
+          }
+        }
+        .aside-nav-list-item + .aside-nav-list-item {
+          margin-left: 20px;
+        }
+      }
+    }
+    .small-screen-menu {
+      .anticon-unordered-list {
+        display: none;
+        font-size: 22px;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 60px;
+        padding: 5px 13px;
+        border-left: 1px solid #f3f3f3;
+        border-bottom: 1px solid #f3f3f3;
+        text-align: center;
+        background: white;
+        .dropdown-menu-item {
+          height: 30px;
+          line-height: 30px;
+          a {
+            color: #333333;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*媒体查询 <1200px*/
+@media (max-width: 1200px) {
+  .header-container {
+    .header-container-package-el {
+      padding: 10px 20px;
+    }
+  }
+}
+
+/*媒体查询 1000px~1200px*/
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .header-container {
+  }
+}
+
+/*媒体查询 <768*/
+@media (max-width: 768px) {
+  .header-container {
+    .header-container-package-el {
+      .main-title {
+        img {
+          display: none;
+        }
+        h1 {
+          margin-left: 0;
+          font-weight: bold;
+        }
+      }
+      .main-nav {
+        display: none;
+      }
+      .small-screen-menu {
+        .anticon-unordered-list {
+          display: inline-block;
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}
+
+/*媒体查询 480px~768px*/
+@media (min-width: 480px) and (max-width: 768px) {
+  .header-container {
+    .header-container-package-el {
+      .main-title {
+        img {
+          display: none;
+        }
+        h1 {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+/*媒体查询 <480*/
+@media (max-width: 480px) {
+  .header-container {
+    border-bottom: 1px solid #dfdfdf;
+    background: white;
+    .header-container-package-el {
+      .main-title {
+        h1 {
+          font-size: 18px;
+          font-weight: normal;
+          color: #1e90ff;
+          span {
+            font-size: 12px;
+            letter-spacing: 1px;
+          }
+        }
+      }
+      .search-section {
+        .search-btn {
+          font-size: 16px;
+          color: gray;
+        }
+        .search-inp-box {
+          background: #efefef;
+        }
+      }
+      .small-screen-menu {
+        .anticon-unordered-list {
+          color: gray;
+        }
+      }
+    }
+  }
+}

@@ -2,12 +2,16 @@ import {
   getAssignClassifyArticleList,
   getAssignDateArticleList,
   getAssignArticle,
-  getLifeArticleList
-} from './home';
+  getLifeArticleList,
+  getSearchArticle,
+  showSearchContentAction
+} from "./home";
 
 export {
   getAssignClassifyArticleList,
   getAssignDateArticleList,
   getAssignArticle,
-  getLifeArticleList
-}
+  getLifeArticleList,
+  getSearchArticle,
+  showSearchContentAction
+};

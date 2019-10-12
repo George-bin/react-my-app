@@ -31,10 +31,6 @@ export default class Home extends Component<IProps, IState> {
   render() {
     return (
       <div className="home-main-component">
-        {/*<Spin tip="加载中..."></Spin>*/}
-        <aside>
-          <LeftAside asideNav={asideNav} />
-        </aside>
         <section className="main-screen-section">
           <Switch>
             {this.props.routes.map((route: any, key: number) => {
@@ -49,6 +45,9 @@ export default class Home extends Component<IProps, IState> {
             })}
           </Switch>
         </section>
+        <aside className="aside-nav-section">
+          <LeftAside asideNav={asideNav} />
+        </aside>
       </div>
     );
   }

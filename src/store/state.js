@@ -7,7 +7,10 @@ export default {
   // 当前显示文章
   activeArticle: {},
   // 当前home页面左侧栏选中的模块
-  activeHomeTab: '',
+  activeHomeTab: "",
   // 生活随笔
-  liftArticleList: []
-}
+  liftArticleList: [],
+  // 搜索文章
+  searchArticleList: [],
+  showSearchContent: false
+};
