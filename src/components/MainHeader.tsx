@@ -66,10 +66,10 @@ class MainHeader extends Component<IProps, IState> {
   handleSearchInpBlur = () => {
     let { showSearchContentAction } = this.props;
     setTimeout(() => {
-      // this.setState({
-      //   showSearchInp: false
-      // });
-      // showSearchContentAction(false);
+      this.setState({
+        showSearchInp: false
+      });
+      showSearchContentAction(false);
     }, 200);
   };
 
