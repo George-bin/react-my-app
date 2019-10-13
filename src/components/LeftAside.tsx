@@ -11,7 +11,8 @@ import {
   getAssignClassifyArticleList,
   getAssignDateArticleList,
   getAssignArticle,
-  getLifeArticleList
+  getLifeArticleList,
+  showSmallScreenAsideMenuAction
 } from "../store/actions";
 
 // import axios from 'axios';
@@ -26,13 +27,14 @@ interface IProps {
   history: any;
   activeArticle: any;
   location: any;
+  showSmallScreenAsideMenuAction: any;
+  showSmallScreenAsideMenu: boolean;
 }
 interface IState {
   classifyList: any;
   lifeArticleList: any;
   dateList: any;
   activeTab: string;
-  showSmallScreenMenu: boolean;
 }
 
 class LeftAside extends Component<IProps, IState> {
@@ -43,9 +45,7 @@ class LeftAside extends Component<IProps, IState> {
       lifeArticleList: [],
       dateList: [],
       // 当前选中的模块
-      activeTab: "",
-      // 小屏菜单
-      showSmallScreenMenu: false
+      activeTab: ""
     };
   }
   componentDidMount() {
@@ -99,12 +99,11 @@ class LeftAside extends Component<IProps, IState> {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   };
 
-  // 打开/关闭小屏菜单
-  handleOpenSmallScreenMenu = () => {
-    console.log("小屏菜单");
-    this.setState({
-      showSmallScreenMenu: !this.state.showSmallScreenMenu
-    });
+  // 关闭小屏菜单
+  handleCloseSmallScreenMenu = () => {
+    // console.log("小屏菜单");
+    let { showSmallScreenAsideMenuAction } = this.props;
+    showSmallScreenAsideMenuAction(false)
   };
 
   // 获取数据
@@ -152,9 +151,8 @@ class LeftAside extends Component<IProps, IState> {
       });
   }
   render() {
-    let { activeArticle } = this.props;
+    let { activeArticle, showSmallScreenAsideMenu } = this.props;
     let { pathname } = this.props.location;
-    let { showSmallScreenMenu } = this.state;
     // console.log("侧边栏", this.props.location);
     return (
       <div className="aside-nav-main-component">
@@ -181,8 +179,8 @@ class LeftAside extends Component<IProps, IState> {
                             ? "#1890ff"
                             : "gray"
                           : activeArticle.notebookCode === item.notebookCode
-                          ? "#1890ff"
-                          : "gray"
+                            ? "#1890ff"
+                            : "gray"
                       }}
                     ></i>
                     <Link
@@ -195,8 +193,8 @@ class LeftAside extends Component<IProps, IState> {
                             ? "#1890ff"
                             : "#333333"
                           : activeArticle.notebookCode === item.notebookCode
-                          ? "#1890ff"
-                          : "#333333"
+                            ? "#1890ff"
+                            : "#333333"
                       }}
                     >
                       {item.notebookName}
@@ -250,8 +248,8 @@ class LeftAside extends Component<IProps, IState> {
                   );
                 })
               ) : (
-                <p className="no-content">暂无内容!</p>
-              )}
+                  <p className="no-content">暂无内容!</p>
+                )}
             </ul>
           </fieldset>
           {/*日期*/}
@@ -295,15 +293,15 @@ class LeftAside extends Component<IProps, IState> {
         <div
           className="small-screen-aside-menu"
           style={{
-            transform: showSmallScreenMenu
+            transform: showSmallScreenAsideMenu
               ? "translate3d(0, 0, 0)"
-              : "translate3d(-200px, 0, 0)"
+              : "translate3d(300px, 0, 0)"
           }}
         >
           <ul
             className="classify-list"
             style={{
-              boxShadow: showSmallScreenMenu ? "5px 0 10px #e4e4e4" : "none"
+              boxShadow: showSmallScreenAsideMenu ? "-5px 0 10px #e4e4e4" : "none"
             }}
           >
             {this.state.classifyList.map((item: any) => {
@@ -321,8 +319,8 @@ class LeftAside extends Component<IProps, IState> {
                           ? "#1890ff"
                           : "gray"
                         : activeArticle.notebookCode === item.notebookCode
-                        ? "#1890ff"
-                        : "gray"
+                          ? "#1890ff"
+                          : "gray"
                     }}
                   ></i>
                   <Link
@@ -333,8 +331,8 @@ class LeftAside extends Component<IProps, IState> {
                           ? "#1890ff"
                           : "#333333"
                         : activeArticle.notebookCode === item.notebookCode
-                        ? "#1890ff"
-                        : "#333333"
+                          ? "#1890ff"
+                          : "#333333"
                     }}
                   >
                     {item.notebookName}
@@ -344,21 +342,12 @@ class LeftAside extends Component<IProps, IState> {
               );
             })}
           </ul>
-          {/* 小屏菜单开关 */}
-          {!showSmallScreenMenu ? (
-            <div
-              className="switch-btn"
-              onClick={this.handleOpenSmallScreenMenu.bind(this)}
-            >
-              <Icon type="right" />
-            </div>
-          ) : null}
         </div>
         {/* 背景层 */}
-        {showSmallScreenMenu ? (
+        {showSmallScreenAsideMenu ? (
           <div
             className="small-screen-aside-menu-bg"
-            onClick={this.handleOpenSmallScreenMenu.bind(this)}
+            onClick={this.handleCloseSmallScreenMenu.bind(this)}
           ></div>
         ) : null}
       </div>
@@ -371,7 +360,8 @@ const mapStateToProps = (state: any) => {
   return {
     articleList: state.articleList,
     activeHomeTab: state.activeHomeTab,
-    activeArticle: state.activeArticle
+    activeArticle: state.activeArticle,
+    showSmallScreenAsideMenu: state.showSmallScreenAsideMenu
   };
 };
 
@@ -389,6 +379,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     },
     getLifeArticleList() {
       dispatch(getLifeArticleList());
+    },
+    showSmallScreenAsideMenuAction(data: boolean) {
+      dispatch(showSmallScreenAsideMenuAction(data));
     }
   };
 };

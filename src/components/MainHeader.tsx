@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
-import { Menu, Dropdown, Icon } from "antd";
+import { Icon } from "antd";
 import avatarImg from "../assets/img/icon.jpg";
 import "../assets/style/mainHeader.scss";
 
@@ -12,7 +12,8 @@ import { connect } from "react-redux";
 import {
   getSearchArticle,
   showSearchContentAction,
-  getAssignArticle
+  getAssignArticle,
+  showSmallScreenAsideMenuAction
 } from "../store/actions";
 
 interface IProps {
@@ -23,12 +24,12 @@ interface IProps {
   showSearchContent: boolean;
   showSearchContentAction: any;
   getAssignArticle: any;
+  showSmallScreenAsideMenuAction: any;
 }
 interface IState {
   activeRoute: string;
   showSearchInp: boolean;
   searchInput: any;
-  showDropdownMenu: boolean;
 }
 
 class MainHeader extends Component<IProps, IState> {
@@ -38,15 +39,13 @@ class MainHeader extends Component<IProps, IState> {
       activeRoute: "Home",
       // 显示搜索框
       showSearchInp: false,
-      searchInput: React.createRef(),
-      showDropdownMenu: false
+      searchInput: React.createRef()
     };
   }
 
   handleChangeRoute(item: any, event: any) {
     this.setState({
-      activeRoute: item.name,
-      showDropdownMenu: false
+      activeRoute: item.name
     });
   }
 
@@ -67,10 +66,10 @@ class MainHeader extends Component<IProps, IState> {
   handleSearchInpBlur = () => {
     let { showSearchContentAction } = this.props;
     setTimeout(() => {
-      this.setState({
-        showSearchInp: false
-      });
-      showSearchContentAction(false);
+      // this.setState({
+      //   showSearchInp: false
+      // });
+      // showSearchContentAction(false);
     }, 200);
   };
 
@@ -90,16 +89,15 @@ class MainHeader extends Component<IProps, IState> {
     this.state.searchInput.current.focus();
   };
 
-  // 显示下拉菜单
-  handleOpenDropdownMenu = () => {
-    this.setState({
-      showDropdownMenu: !this.state.showDropdownMenu
-    });
+  // 显示小屏滑动菜单
+  handleOpenSmallScreenMenu = () => {
+    let { showSmallScreenAsideMenuAction } = this.props;
+    showSmallScreenAsideMenuAction(true)
   };
 
   render() {
     let { searchArticleList, showSearchContent } = this.props;
-    let { showSearchInp, searchInput, showDropdownMenu } = this.state;
+    let { showSearchInp, searchInput } = this.state;
     // console.log(searchArticleList);
     return (
       <header className="header-container" id="main-header">
@@ -107,7 +105,7 @@ class MainHeader extends Component<IProps, IState> {
           <div className="main-title">
             <img src={avatarImg} alt="头像" />
             <h1>
-              George<span>前端开发爱好者</span>
+              George<span>专注前端</span>
             </h1>
           </div>
           {/* 搜索区域 */}
@@ -159,15 +157,15 @@ class MainHeader extends Component<IProps, IState> {
                 ) : null}
               </ul>
             ) : null}
-            {/* 搜索按钮 */}
-            {showSearchInp ? null : (
-              <i
-                className="iconfont icon-sousuo search-btn"
-                style={{ cursor: "pointer" }}
-                onClick={this.handleStartSearch.bind(this)}
-              ></i>
-            )}
           </div>
+          {/* 搜索按钮 */}
+          {showSearchInp ? null : (
+            <i
+              className="iconfont icon-sousuo search-btn"
+              style={{ cursor: "pointer" }}
+              onClick={this.handleStartSearch.bind(this)}
+            ></i>
+          )}
           {/* 大屏主导航 */}
           <nav className="main-nav">
             <ul className="aside-nav-list-section">
@@ -199,43 +197,12 @@ class MainHeader extends Component<IProps, IState> {
               </li>
             </ul>
           </nav>
-          {/* 小屏下拉菜单 */}
+          {/* 小屏滑动菜单菜单 */}
           <div className="small-screen-menu">
             <Icon
               type="unordered-list"
-              onClick={this.handleOpenDropdownMenu.bind(this)}
+              onClick={this.handleOpenSmallScreenMenu.bind(this)}
             />
-            <ul
-              className="dropdown-menu"
-              style={{ display: showDropdownMenu ? "block" : "none" }}
-            >
-              <li
-                className="dropdown-menu-item"
-                onClick={this.handleChangeRoute.bind(this, {
-                  name: "Home",
-                  label: "首页"
-                })}
-                style={{
-                  borderBottom:
-                    this.state.activeRoute === "Home" ? "2px solid #1e90ff" : ""
-                }}
-              >
-                <Link to="/">首页</Link>
-              </li>
-              <li
-                className="dropdown-menu-item"
-                onClick={this.handleChangeRoute.bind(this, {
-                  name: "Life",
-                  label: "生活"
-                })}
-                style={{
-                  borderBottom:
-                    this.state.activeRoute === "Life" ? "2px solid #1e90ff" : ""
-                }}
-              >
-                <Link to="/life">生活</Link>
-              </li>
-            </ul>
           </div>
         </div>
       </header>
@@ -262,6 +229,9 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     },
     getAssignArticle(data: string) {
       dispatch(getAssignArticle(data));
+    },
+    showSmallScreenAsideMenuAction(data: boolean) {
+      dispatch(showSmallScreenAsideMenuAction(data));
     }
   };
 };

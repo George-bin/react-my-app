@@ -12,5 +12,7 @@ export default {
   liftArticleList: [],
   // 搜索文章
   searchArticleList: [],
-  showSearchContent: false
+  showSearchContent: false,
+  // 显示小屏滑动菜单
+  showSmallScreenAsideMenu: false
 };

@@ -1,4 +1,6 @@
-import { message } from "antd";
+import {
+  message
+} from "antd";
 import {
   getAssignClassifyArticleListRequest,
   getAssignDateArticleListRequest,
@@ -8,12 +10,24 @@ import {
 } from "../../api/home";
 
 // 获取指定分类的文章列表
-export const getAssignClassifyArticleList = ({ classifyId, page }) => {
+export const getAssignClassifyArticleList = ({
+  classifyId,
+  page
+}) => {
   return (dispatch, getState) => {
-    getAssignClassifyArticleListRequest({ classifyId, page }).then(response => {
-      let { errcode, classifyInfo } = response.data;
+    getAssignClassifyArticleListRequest({
+      classifyId,
+      page
+    }).then(response => {
+      let {
+        errcode,
+        classifyInfo
+      } = response.data;
       if (errcode === 0) {
-        dispatch({ type: "UPDATE_ARTICLE_LIST", data: classifyInfo });
+        dispatch({
+          type: "UPDATE_ARTICLE_LIST",
+          data: classifyInfo
+        });
       } else if (errcode === 998) {
         message.error("当前分类不存在!");
         localStorage.removeItem("activeHomeTab");
@@ -25,15 +39,27 @@ export const getAssignClassifyArticleList = ({ classifyId, page }) => {
 };
 
 // 获取指定日期的文章列表
-export const getAssignDateArticleList = ({ date, page }) => {
+export const getAssignDateArticleList = ({
+  date,
+  page
+}) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      getAssignDateArticleListRequest({ date, page })
+      getAssignDateArticleListRequest({
+          date,
+          page
+        })
         .then(response => {
-          let { errcode, classifyInfo } = response.data;
+          let {
+            errcode,
+            classifyInfo
+          } = response.data;
           // debugger;
           if (errcode === 0) {
-            dispatch({ type: "UPDATE_ARTICLE_LIST", data: classifyInfo });
+            dispatch({
+              type: "UPDATE_ARTICLE_LIST",
+              data: classifyInfo
+            });
           } else {
             message.error("获取文章列表失败!");
           }
@@ -69,7 +95,10 @@ export const getLifeArticleList = () => {
     return new Promise((resolve, reject) => {
       getLifeArticleListRequest({})
         .then(response => {
-          let { errcode, lifeArticeList } = response.data;
+          let {
+            errcode,
+            lifeArticeList
+          } = response.data;
           if (errcode === 0) {
             dispath({
               type: "UPDATE_LIFT_ARTICLE_LIST",
@@ -113,3 +142,13 @@ export const showSearchContentAction = flag => {
     });
   };
 };
+
+// 显示/隐藏小屏菜单
+export const showSmallScreenAsideMenuAction = flag => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: "UPDATE_SHOW_SMALL_SCREEN_ASIDE_MENU",
+      data: flag
+    });
+  };
+}

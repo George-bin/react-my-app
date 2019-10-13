@@ -6,26 +6,31 @@
   background: white;
   // background: #4bb8c5;
   z-index: 1;
+
   .header-container-package-el {
     display: flex;
     align-items: center;
     max-width: 1200px;
     height: 59px;
     margin: auto;
+
     .main-title {
       flex: 1;
       display: flex;
       align-items: flex-end;
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
       }
+
       h1 {
         margin-left: 10px;
         font-size: 22px;
         font-weight: normal;
         color: #1e90ff;
+
         span {
           margin-left: 10px;
           font-size: 14px;
@@ -35,9 +40,11 @@
         }
       }
     }
+
     .search-section {
       position: relative;
       height: 30px;
+
       // background: red;
       .search-inp-box {
         height: 30px;
@@ -45,6 +52,7 @@
         border-radius: 20px;
         transition: all 0.3s;
         overflow: hidden;
+
         .search-inp {
           height: 30px;
           padding-left: 10px;
@@ -53,58 +61,69 @@
           background: none;
         }
       }
+
       .icon-sousuo {
         font-weight: bold;
         color: #adadad;
         cursor: pointer;
       }
-      .search-btn {
-        position: absolute;
-        right: 10px;
-        top: 2px;
-        color: #333333;
-      }
+
       .search-article-list {
         position: absolute;
         top: 36px;
         left: 0;
         width: 240px;
+        max-height: 400px;
         padding: 10px;
         border: 1px solid #d2d2d2;
         color: #4e6e8e;
         background: white;
         border-radius: 4px;
         box-shadow: 0 5px 5px #dfdfdf;
+        overflow: auto;
         z-index: 999;
+
         .search-article-list-item {
           padding: 5px;
           font-size: 16px;
           cursor: pointer;
+
           &:hover {
             color: #1890ff;
             background: #f7f7f7;
             border-radius: 3px;
           }
+
           .des {
             display: flex;
             justify-content: space-between;
             margin-top: 6px;
             font-size: 10px;
             color: gray;
+
             .note-book-name {
               width: 100px;
             }
           }
         }
-        .search-article-list-item + .search-article-list-item {
+
+        .search-article-list-item+.search-article-list-item {
           border-top: 1px solid #f7f7f7;
         }
       }
     }
+
+    .search-btn {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
     .main-nav {
       margin-left: 10px;
+
       .aside-nav-list-section {
         text-align: right;
+
         .aside-nav-list-item {
           display: inline-block;
           width: 50px;
@@ -112,9 +131,11 @@
           line-height: 36px;
           font-size: 16px;
           text-align: center;
+
           &:hover {
             border-bottom: 2px solid #6cafec;
           }
+
           a {
             display: block;
             height: 100%;
@@ -122,33 +143,19 @@
             text-decoration: none;
           }
         }
-        .aside-nav-list-item + .aside-nav-list-item {
+
+        .aside-nav-list-item+.aside-nav-list-item {
           margin-left: 20px;
         }
       }
     }
+
     .small-screen-menu {
+      margin-left: 10px;
+
       .anticon-unordered-list {
         display: none;
         font-size: 22px;
-      }
-      .dropdown-menu {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 60px;
-        padding: 5px 13px;
-        border-left: 1px solid #f3f3f3;
-        border-bottom: 1px solid #f3f3f3;
-        text-align: center;
-        background: white;
-        .dropdown-menu-item {
-          height: 30px;
-          line-height: 30px;
-          a {
-            color: #333333;
-          }
-        }
       }
     }
   }
@@ -165,8 +172,7 @@
 
 /*媒体查询 1000px~1200px*/
 @media (min-width: 1000px) and (max-width: 1200px) {
-  .header-container {
-  }
+  .header-container {}
 }
 
 /*媒体查询 <768*/
@@ -177,14 +183,17 @@
         img {
           display: none;
         }
+
         h1 {
           margin-left: 0;
           font-weight: bold;
         }
       }
+
       .main-nav {
         display: none;
       }
+
       .small-screen-menu {
         .anticon-unordered-list {
           display: inline-block;
@@ -203,6 +212,7 @@
         img {
           display: none;
         }
+
         h1 {
           font-weight: bold;
         }
@@ -216,30 +226,52 @@
   .header-container {
     border-bottom: 1px solid #dfdfdf;
     background: white;
+
     .header-container-package-el {
       .main-title {
         h1 {
           font-size: 18px;
           font-weight: normal;
           color: #1e90ff;
+
           span {
             font-size: 12px;
             letter-spacing: 1px;
           }
         }
       }
+
       .search-section {
-        .search-btn {
-          font-size: 16px;
-          color: gray;
-        }
         .search-inp-box {
           background: #efefef;
+
+          .icon-sousuo {
+            font-size: 14px;
+          }
+        }
+
+        .search-article-list {
+          width: 200px;
+
+          .search-article-list-item {
+            .des {
+              .note-book-name {
+                width: 60px;
+              }
+            }
+          }
         }
       }
+
+      .search-btn {
+        font-size: 14px;
+        // color: gray;
+      }
+
       .small-screen-menu {
         .anticon-unordered-list {
-          color: gray;
+          font-size: 16px;
+          // color: gray;
         }
       }
     }

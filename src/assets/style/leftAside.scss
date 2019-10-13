@@ -2,57 +2,68 @@
   position: relative;
   height: 100%;
   padding: 20px 0;
+
   .aside-nav-package-el {
     width: 240px;
+
     .aside-nav-item {
       //border: 1px solid #DFDFDF;
       border: none;
       background: #ffffff;
       border-radius: 4px;
+
       legend {
         margin-left: 10px;
       }
+
       .list {
         margin-top: 10px;
+
         .list-item {
           display: flex;
           align-items: center;
           height: 34px;
           padding: 0 10px;
           font-size: 14px;
+
           .iconfont {
             color: gray;
           }
+
           a {
             flex: 1;
             margin-left: 10px;
             color: #333333;
             text-decoration: none;
           }
+
           a:hover {
             color: #1890ff;
           }
         }
       }
     }
-    .aside-nav-item + .aside-nav-item {
+
+    .aside-nav-item+.aside-nav-item {
       margin-top: 20px;
     }
+
     .no-content {
       padding: 10px;
       color: gray;
     }
   }
+
   // 小屏菜单
   .small-screen-aside-menu {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     display: none;
     height: 100vh;
-    transform: translate3d(-200px, 0, 0);
     transition: all 0.3s;
     z-index: 2;
+
     .switch-btn {
       display: flex;
       align-items: center;
@@ -62,17 +73,20 @@
       color: white;
       background: rgba(0, 0, 0, 0.3);
       border-radius: 0 20px 20px 0;
+
       .anticon-right,
       .anticon-left {
         font-size: 16px;
       }
     }
+
     .classify-list {
-      width: 200px;
+      width: 300px;
       height: 100%;
       padding: 10px;
       background: white;
       overflow: auto;
+
       .classify-list-item {
         display: flex;
         justify-content: space-between;
@@ -80,6 +94,7 @@
         line-height: 34px;
         border-bottom: 1px solid #f7f7f7;
         font-size: 15px;
+
         a {
           flex: 1;
           width: 100px;
@@ -91,6 +106,7 @@
       }
     }
   }
+
   .small-screen-aside-menu-bg {
     position: fixed;
     top: 0;
@@ -102,20 +118,16 @@
 }
 
 /*媒体查询 <1200px*/
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
 
 /*媒体查询 1000px~1200px*/
-@media (min-width: 1000px) and (max-width: 1200px) {
-}
+@media (min-width: 1000px) and (max-width: 1200px) {}
 
 /*媒体查询 <768*/
-@media (max-width: 768px) {
-}
+@media (max-width: 768px) {}
 
 /*媒体查询 480px~768px*/
-@media (min-width: 480px) and (max-width: 768px) {
-}
+@media (min-width: 480px) and (max-width: 768px) {}
 
 /*媒体查询 <480*/
 @media (max-width: 480px) {

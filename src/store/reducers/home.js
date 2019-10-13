@@ -59,3 +59,16 @@ export const showSearchContent = (
       return state;
   }
 };
+
+// 显示/隐藏小屏菜单
+export const showSmallScreenAsideMenu = (
+  state = defaultState.showSmallScreenAsideMenu,
+  action
+) => {
+  switch (action.type) {
+    case "UPDATE_SHOW_SMALL_SCREEN_ASIDE_MENU":
+      return action.data;
+    default:
+      return state;
+  }
+}

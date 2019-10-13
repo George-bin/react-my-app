@@ -4,7 +4,8 @@ import {
   getAssignArticle,
   getLifeArticleList,
   getSearchArticle,
-  showSearchContentAction
+  showSearchContentAction,
+  showSmallScreenAsideMenuAction
 } from "./home";
 
 export {
@@ -13,5 +14,6 @@ export {
   getAssignArticle,
   getLifeArticleList,
   getSearchArticle,
-  showSearchContentAction
+  showSearchContentAction,
+  showSmallScreenAsideMenuAction
 };
