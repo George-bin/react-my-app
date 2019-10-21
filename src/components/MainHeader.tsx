@@ -92,7 +92,7 @@ class MainHeader extends Component<IProps, IState> {
   // 显示小屏滑动菜单
   handleOpenSmallScreenMenu = () => {
     let { showSmallScreenAsideMenuAction } = this.props;
-    showSmallScreenAsideMenuAction(true)
+    showSmallScreenAsideMenuAction(true);
   };
 
   render() {
@@ -105,25 +105,30 @@ class MainHeader extends Component<IProps, IState> {
           <div className="main-title">
             <img src={avatarImg} alt="头像" />
             <h1>
-              George<span>专注前端</span>
+              George<span>专注前端开发</span>
             </h1>
           </div>
           {/* 搜索区域 */}
+          <i
+            className="iconfont icon-icon-test search-btn"
+            style={{ cursor: "pointer" }}
+            onClick={this.handleStartSearch.bind(this)}
+          ></i>
           <div className="search-section">
-            <div
-              className="search-inp-box"
-              style={{ width: showSearchInp ? "167px" : 0 }}
-            >
-              <input
-                className="search-inp"
-                type="text"
-                onChange={this.handleSearchContent.bind(this)}
-                onFocus={this.handleSearchInpFocus.bind(this)}
-                onBlur={this.handleSearchInpBlur.bind(this)}
-                ref={searchInput}
-              />
-              <i className="iconfont icon-sousuo"></i>
-            </div>
+            <input
+              className="search-inp"
+              type="text"
+              onChange={this.handleSearchContent.bind(this)}
+              onFocus={this.handleSearchInpFocus.bind(this)}
+              onBlur={this.handleSearchInpBlur.bind(this)}
+              ref={searchInput}
+              style={{
+                width: showSearchInp ? "240px" : 0,
+                borderBottom: showSearchInp ? "2px solid #828282" : 0,
+                marginLeft: showSearchInp ? "10px" : 0,
+                paddingLeft: showSearchInp ? "10px" : 0
+              }}
+            />
             {/* 搜索结果显示 */}
             {showSearchContent ? (
               <ul className="search-article-list">
@@ -158,14 +163,7 @@ class MainHeader extends Component<IProps, IState> {
               </ul>
             ) : null}
           </div>
-          {/* 搜索按钮 */}
-          {showSearchInp ? null : (
-            <i
-              className="iconfont icon-sousuo search-btn"
-              style={{ cursor: "pointer" }}
-              onClick={this.handleStartSearch.bind(this)}
-            ></i>
-          )}
+          {showSearchInp ? <div className="search-section-bg"></div> : null}
           {/* 大屏主导航 */}
           <nav className="main-nav">
             <ul className="aside-nav-list-section">
@@ -198,11 +196,11 @@ class MainHeader extends Component<IProps, IState> {
             </ul>
           </nav>
           {/* 小屏滑动菜单菜单 */}
-          <div className="small-screen-menu">
-            <Icon
-              type="unordered-list"
-              onClick={this.handleOpenSmallScreenMenu.bind(this)}
-            />
+          <div
+            className="small-screen-menu"
+            onClick={this.handleOpenSmallScreenMenu.bind(this)}
+          >
+            <i className="iconfont icon-2"></i>
           </div>
         </div>
       </header>

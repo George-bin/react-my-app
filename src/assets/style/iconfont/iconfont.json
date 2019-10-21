@@ -27,6 +27,13 @@
       "unicode_decimal": 58903
     },
     {
+      "icon_id": "1380034",
+      "name": "搜索",
+      "font_class": "icon-test",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
       "icon_id": "7478325",
       "name": "日期",
       "font_class": "riqi",
@@ -34,11 +41,11 @@
       "unicode_decimal": 59203
     },
     {
-      "icon_id": "8530347",
-      "name": "搜索 ",
-      "font_class": "sousuo",
-      "unicode": "e60d",
-      "unicode_decimal": 58893
+      "icon_id": "11124955",
+      "name": "分类",
+      "font_class": "2",
+      "unicode": "e613",
+      "unicode_decimal": 58899
     }
   ]
 }

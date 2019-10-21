@@ -111,6 +111,7 @@ body,
 }
 
 pre {
+  max-height: 300px;
   margin: 20px 0 0;
   padding: 10px;
   border: 1px solid #d2d2d2;
@@ -119,6 +120,7 @@ pre {
   border-radius: 4px;
   /*letter-spacing: 1px;*/
   word-spacing: 2px;
+  overflow: auto;
 }
 
 pre p,

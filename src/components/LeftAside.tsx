@@ -103,7 +103,7 @@ class LeftAside extends Component<IProps, IState> {
   handleCloseSmallScreenMenu = () => {
     // console.log("小屏菜单");
     let { showSmallScreenAsideMenuAction } = this.props;
-    showSmallScreenAsideMenuAction(false)
+    showSmallScreenAsideMenuAction(false);
   };
 
   // 获取数据
@@ -179,8 +179,8 @@ class LeftAside extends Component<IProps, IState> {
                             ? "#1890ff"
                             : "gray"
                           : activeArticle.notebookCode === item.notebookCode
-                            ? "#1890ff"
-                            : "gray"
+                          ? "#1890ff"
+                          : "gray"
                       }}
                     ></i>
                     <Link
@@ -193,8 +193,8 @@ class LeftAside extends Component<IProps, IState> {
                             ? "#1890ff"
                             : "#333333"
                           : activeArticle.notebookCode === item.notebookCode
-                            ? "#1890ff"
-                            : "#333333"
+                          ? "#1890ff"
+                          : "#333333"
                       }}
                     >
                       {item.notebookName}
@@ -248,8 +248,8 @@ class LeftAside extends Component<IProps, IState> {
                   );
                 })
               ) : (
-                  <p className="no-content">暂无内容!</p>
-                )}
+                <p className="no-content">暂无内容!</p>
+              )}
             </ul>
           </fieldset>
           {/*日期*/}
@@ -298,12 +298,7 @@ class LeftAside extends Component<IProps, IState> {
               : "translate3d(300px, 0, 0)"
           }}
         >
-          <ul
-            className="classify-list"
-            style={{
-              boxShadow: showSmallScreenAsideMenu ? "-5px 0 10px #e4e4e4" : "none"
-            }}
-          >
+          <ul className="classify-list">
             {this.state.classifyList.map((item: any) => {
               return (
                 <li
@@ -319,8 +314,8 @@ class LeftAside extends Component<IProps, IState> {
                           ? "#1890ff"
                           : "gray"
                         : activeArticle.notebookCode === item.notebookCode
-                          ? "#1890ff"
-                          : "gray"
+                        ? "#1890ff"
+                        : "gray"
                     }}
                   ></i>
                   <Link
@@ -331,8 +326,8 @@ class LeftAside extends Component<IProps, IState> {
                           ? "#1890ff"
                           : "#333333"
                         : activeArticle.notebookCode === item.notebookCode
-                          ? "#1890ff"
-                          : "#333333"
+                        ? "#1890ff"
+                        : "#333333"
                     }}
                   >
                     {item.notebookName}
